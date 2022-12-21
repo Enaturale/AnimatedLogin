@@ -6,7 +6,7 @@ import SignupForm from './src/Components/SignupForm';
 
 export default function App() {
   return (
-    <View style={{ flex: 1, paddingTop: '40%' }}>
+    <View style={{ flex: 1, paddingTop: '25%' }}>
       <FormHeader
         leftHeading='Welcome'
         rightHeading='Back'
@@ -14,20 +14,21 @@ export default function App() {
       />
       {/* Buttons Login and Signup */}
       <View style={{ flexDirection: 'row', paddingHorizontal: 20, }}>
-        <FormButton style={styles.borderLeft} backgroundColor="rgba(27, 27, 51, 1)" title='Login' />
+        <FormButton style={styles.borderLeft} backgroundColor="#194D33" title='Login' />
         <FormButton style={styles.borderRight} backgroundColor="rgba(27, 27, 51, 0.4)" title='Sign Up' />
       </View>
 
       {/* text input fields */}
-      <ScrollView 
-          horizontal 
-          pagingEnabled
-          showsHorizontalScrollIndicator= {false}
-          >      
-          <LoginForm />
+      <ScrollView
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+      >
+        <LoginForm />
+        
+        <ScrollView>
           <SignupForm />
-
-    
+        </ScrollView>
       </ScrollView>
 
     </View>

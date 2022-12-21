@@ -17,7 +17,7 @@ const Styles = StyleSheet.create({
         width: '50%', 
         justifyContent: 'center',
         alignItems: 'center',
-         backgroundColor: "#1b1b33"
+         backgroundColor: "#194D33"
     },
     title:{
         color: 'white', 
