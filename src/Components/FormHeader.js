@@ -1,12 +1,14 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Animated } from 'react-native'
 import React from 'react'
 
-export default function FormHeader({leftHeading, rightHeading, subHeading}) {
+export default function FormHeader({leftHeading, rightHeading, subHeading, 
+    leftHeaderTranslateX = 40, rightHeaderTranslateY = -20, rightHeaderOpacity = 0}) {
     return (
         <View style={Styles.container}>
             <View style={Styles.headingContainer}>
-                <Text style={Styles.heading}>{leftHeading} </Text>
-                <Text style={Styles.heading}>{rightHeading}</Text>
+                <Animated.Text 
+                   style={[Styles.heading, {transform:[{translateX: leftHeaderTranslateX}]}]}>{leftHeading} </Animated.Text>
+                <Animated.Text style={[Styles.heading, {opacity: rightHeaderOpacity, transform:[{translateY: rightHeaderTranslateY}]}]}>{rightHeading}</Animated.Text>
             </View>
             <Text style={Styles.subheading}>{subHeading}</Text>
         </View>
