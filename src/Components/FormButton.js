@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet, TouchableWithoutFeedback, Animated } from 'react-native'
 import React from 'react'
 
-export default function FormButton({ title, backgroundColor, style }) {
+export default function FormButton({ title, backgroundColor, style, onPress }) {
   return (
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback onPress={onPress}>
       <Animated.View style={[Styles.container, style, { backgroundColor: backgroundColor }]}>
         <Text style={Styles.title}>{title}</Text>
       </Animated.View>

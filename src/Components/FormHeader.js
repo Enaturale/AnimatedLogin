@@ -8,7 +8,7 @@ export default function FormHeader({leftHeading, rightHeading, subHeading,
             <View style={Styles.headingContainer}>
                 <Animated.Text 
                    style={[Styles.heading, {transform:[{translateX: leftHeaderTranslateX}]}]}>{leftHeading} </Animated.Text>
-                <Animated.Text style={[Styles.heading, {opacity: rightHeaderOpacity, transform:[{translateY: rightHeaderTranslateY}]}]}>{rightHeading}</Animated.Text>
+                <Animated.Text style={[Styles.heading,{color:'#194D33'}, {opacity: rightHeaderOpacity, transform:[{translateY: rightHeaderTranslateY}]}]}>{rightHeading}</Animated.Text>
             </View>
             <Text style={Styles.subheading}>{subHeading}</Text>
         </View>
