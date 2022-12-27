@@ -2,7 +2,8 @@ import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React from 'react'
 import FormButtonSubmit from './FormButtonSubmit'
 
-const FormInput = ({ placeholder, title, secureTextEntry }) => {
+const FormInput = (props) => {
+const { placeholder, title, secureTextEntry } = props
     return (
         <>
             <Text style={styles.title}>{title}</Text>
@@ -10,6 +11,7 @@ const FormInput = ({ placeholder, title, secureTextEntry }) => {
                 style={styles.textInput} 
                 placeholder={placeholder} 
                 secureTextEntry={secureTextEntry} 
+                {...props}
             />
         </>
     )
