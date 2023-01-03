@@ -4,14 +4,31 @@ import FormButtonSubmit from './FormButtonSubmit'
 import FormInput from './FormInput'
 import { isValidObjField, isValidEmail, updateError } from '../utils/methods'
 
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object({
+    name: Yup.string().trim().min(3, "The Minimum Character for your name should be 3").required('Name is Required'),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string().trim().min(8, "Password must be at least 8 characters").required("Password is required"),
+    confirmpassword: Yup.string().equals([Yup.ref('password'), null], 'Password does not match')
+})
+
 
 export default function SignupForm() {
-    const [userInfo, setUserInfo] = useState({
+    // const [userInfo, setUserInfo] = useState({
+    //     name: '',
+    //     email: '',
+    //     password: '',
+    //     confirmpassword: ''
+    // })
+
+    const userInfo = {
         name: '',
         email: '',
         password: '',
         confirmpassword: ''
-    })
+    }
 
     const [error, setError] = useState("")
 
@@ -55,33 +72,66 @@ export default function SignupForm() {
 
     return (
         <KeyboardAvoidingView style={styles.container}>
-            {error ? <Text style={{color:'red', fontSize: 18, textAlign:'center'}}>{error}</Text> : null } 
-            <FormInput
-                value={name}
-                onChangeText={(value) => handleOnChangeText(value, 'name')}
-                title="Name"
-                placeholder="John Doe" />
-            <FormInput
-                value={email}
-                onChangeText={(value) => handleOnChangeText(value, 'email')}
-                autoCapitalize="none"
-                title="Email"
-                placeholder="example@gmail.com" />
-            <FormInput
-                value={password}
-                onChangeText={(value) => handleOnChangeText(value, 'password')}
-                autoCapitalize="none"
-                title="Password"
-                placeholder="********"
-                secureTextEntry={true} />
-            <FormInput
-                value={confirmpassword}
-                onChangeText={(value) => handleOnChangeText(value, 'confirmpassword')}
-                autoCapitalize="none"
-                title="Confirm Password"
-                placeholder="********"
-                secureTextEntry={true} />
-            <FormButtonSubmit title="Sign Up" onPress={submitForm} />
+            {/* {error ? <Text style={{color:'red', fontSize: 18, textAlign:'center'}}>{error}</Text> : null }  */}
+            <Formik
+                initialValues={userInfo}
+                validationSchema={validationSchema}
+                onSubmit={(values, formikActions) => {
+                    //    console.log(values)
+                    setTimeout(() => {
+                        formikActions.resetForm();
+                        formikActions.setSubmitting(false)
+
+                    }, 3000);
+                }}>
+                {({ values, errors, touched, handleBlur, handleChange, handleSubmit, isSubmitting }) => {
+                    const { name, email, password, confirmpassword } = values
+                    // console.log(values)
+                    return <>
+                        <FormInput
+                            value={name}
+                            // onChangeText={(value) => handleOnChangeText(value, 'name')}
+                            onChangeText={handleChange('name')}
+                            error={touched.name && errors.name}
+                            onBlur={handleBlur('name')}
+                            title="Name"
+                            placeholder="John Doe" />
+                        <FormInput
+                            value={email}
+                            // onChangeText={(value) => handleOnChangeText(value, 'email')}
+                            onChangeText={handleChange('email')}
+                            error={touched.email && errors.email}
+                            onBlur={handleBlur('email')}
+                            autoCapitalize="none"
+                            title="Email"
+                            placeholder="example@gmail.com" />
+                        <FormInput
+                            value={password}
+                            // onChangeText={(value) => handleOnChangeText(value, 'password')}
+                            onChangeText={handleChange('password')}
+                            error={touched.password && errors.password}
+                            onBlur={handleBlur('password')}
+                            autoCapitalize="none"
+                            title="Password"
+                            placeholder="********"
+                            secureTextEntry={true} />
+                        <FormInput
+                            value={confirmpassword}
+                            // onChangeText={(value) => handleOnChangeText(value, 'confirmpassword')}
+                            onChangeText={handleChange('confirmpassword')}
+                            error={touched.confirmpassword && errors.confirmpassword}
+                            autoCapitalize="none"
+                            onBlur={handleBlur('confirmpassword')}
+                            title="Confirm Password"
+                            placeholder="********"
+                            secureTextEntry={true} />
+                        <FormButtonSubmit title="Sign Up" onPress={handleSubmit} submitting={isSubmitting}/>
+
+                    </>
+                }}
+            </Formik>
+
+
         </KeyboardAvoidingView>
     )
 }

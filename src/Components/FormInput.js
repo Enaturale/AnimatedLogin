@@ -3,14 +3,17 @@ import React from 'react'
 import FormButtonSubmit from './FormButtonSubmit'
 
 const FormInput = (props) => {
-const { placeholder, title, secureTextEntry } = props
+    const { placeholder, title, secureTextEntry, error } = props
     return (
         <>
-            <Text style={styles.title}>{title}</Text>
-            <TextInput 
-                style={styles.textInput} 
-                placeholder={placeholder} 
-                secureTextEntry={secureTextEntry} 
+            <View>
+                <Text style={styles.title}>{title}</Text>
+                {error ? <Text style={{color:'red'}}>{error}</Text> : null}
+            </View>
+            <TextInput
+                style={styles.textInput}
+                placeholder={placeholder}
+                secureTextEntry={secureTextEntry}
                 {...props}
             />
         </>
@@ -30,7 +33,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#194D33',
         width: "100%",
-        height: 35,
+        height: 40,
         fontSize: 16,
         borderRadius: 8,
         paddingLeft: 10,
